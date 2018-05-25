@@ -4,14 +4,27 @@ const morgan = require('morgan');
 const authRouter = require('./routes/AuthRouter');
 const votingRouter = require('./routes/VotingRouter');
 const dotenv = require('dotenv');
-const cors = require('cors');
+// const cors = require('cors');
 const PORT = process.env.PORT || 8000;
 const app = express();
 dotenv.load();
 
-app.use(cors());
-app.options('*', cors());
+// app.use(cors());
+// app.options('*', cors());
+app.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "http://localhost:8080");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header("Access-Control-Allow-Methods",  "POST, GET, OPTIONS")
+  next();
+});
+app.use((req, res, next) => { 
+  if (req.method === 'OPTIONS') { 
+    return res.status(200) 
+  } 
+});
+
 app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
 app.use('/auth', authRouter);
