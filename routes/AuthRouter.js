@@ -23,7 +23,8 @@ router
 router
   .route('/signup')
   .post((req, res, next) => {
-    db.User.create(req.body).then(user => {
+    console.log(req);
+    db.Users.create(req.body).then(user => {
       const token = jwt.sign({ user_id: user.id }, process.env.SECRET_KEY);
       res.status(200).send({ token: token, userId: user.id, userName: user.username })
     })
