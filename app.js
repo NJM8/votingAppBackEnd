@@ -10,6 +10,7 @@ const app = express();
 dotenv.load();
 
 app.use(cors());
+app.options('*', cors());
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(morgan('tiny'));
 
