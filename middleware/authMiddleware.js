@@ -2,8 +2,7 @@ const jwt = require("jsonwebtoken");
 
 exports.loginRequired = function (req, res, next) {
   try {
-    const token = req.body.token;
-    jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
+    jwt.verify(req.body.idToken, process.env.SECRET_KEY, function (err, decoded) {
       if (decoded) {
         next();
       } else {
@@ -17,8 +16,7 @@ exports.loginRequired = function (req, res, next) {
 
 exports.ensureCorrectUser = function (req, res, next) {
   try {
-    const token = req.body.token;
-    jwt.verify(token, process.env.SECRET_KEY, function (err, decoded) {
+    jwt.verify(req.body.idToken, process.env.SECRET_KEY, function (err, decoded) {
       if (decoded.user_id === req.params.userId) {
         next();
       } else {
