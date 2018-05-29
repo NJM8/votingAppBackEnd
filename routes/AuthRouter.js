@@ -14,11 +14,11 @@ router
           res.status(200).json({ idToken: token })
         } else {
           console.log('wrong password');
-          res.status(401).send('Invalid Password')
+          return res.status(401).send('Invalid Password')
         }
       })
     }).catch(error => {
-      res.status(401).send('Invalid Username')
+      return res.status(401).send('Invalid Username')
     });
 });
 
@@ -29,6 +29,15 @@ router
       const token = jwt.sign({ user_id: user.id }, process.env.SECRET_KEY);
       res.status(200).json({ idToken: token })
     }).catch(error => {
+      if (error.code === 11000) {
+        console.log(error.message)
+        if (error.message.split(' ').includes('email_1')) {
+          return res.status(401).send('Email already taken');
+        }
+        if (error.message.split(' ').includes('username_1')) {
+          return res.status(401).send('Username already taken');
+        }
+      }
       return next(error);
     })
 });
