@@ -13,7 +13,6 @@ router
           const token = jwt.sign({ user_id: user.id }, process.env.SECRET_KEY);
           res.status(200).json({ idToken: token })
         } else {
-          console.log('wrong password');
           return res.status(401).send('Invalid Password')
         }
       })
@@ -30,7 +29,6 @@ router
       res.status(200).json({ idToken: token })
     }).catch(error => {
       if (error.code === 11000) {
-        console.log(error.message)
         if (error.message.split(' ').includes('email_1')) {
           return res.status(401).send('Email already taken');
         }
