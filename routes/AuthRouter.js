@@ -25,7 +25,7 @@ router
   .post((req, res, next) => {
     db.Users.create(req.body).then(user => {
       const token = jwt.sign({ user_id: user.id }, process.env.SECRET_KEY, { expiresIn: 86400 });
-      res.status(200).json({ idToken: 'junk', expiresIn: 86400 });
+      res.status(200).json({ idToken: token, expiresIn: 86400 });
     }).catch(error => {
       if (error.code === 11000) {
         if (error.message.split(' ').includes('email_1')) {
