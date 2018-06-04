@@ -4,7 +4,7 @@ var db = require("../models")
 var jwt = require('jsonwebtoken');
 
 router
-  .route('/signin')
+  .route('/login')
   .post((req, res, next) => {
     db.Users.findOne({ username: req.body.username }).then(user => {
       user.comparePassword(req.body.password, (err, isMatch) => {
@@ -53,7 +53,7 @@ router
           });
         } else {
           if (error.name === 'TokenExpiredError') {
-            return res.status(401).send('signin');
+            return res.status(401).send('login');
           }
           return res.status(401).send('Invalid Token')
         }
