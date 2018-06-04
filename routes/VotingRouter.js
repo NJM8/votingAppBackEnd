@@ -4,10 +4,10 @@ const db = require('../models');
 const authMiddleware = require('../middleware/authMiddleware');
 
 router 
-  .route('/newPoll/:userId')
-  .post(authMiddleware.ensureCorrectUser, (req, res, next) => {
-    db.Polls.create(req.body.poll).then(poll => {
-      res.status(200).json(poll);
+  .route('/newPoll')
+  .post((req, res, next) => {
+    db.Polls.create(req.body.newPoll).then(poll => {
+      res.status(200).send();
     }).catch(error => {
       return next(error);
     })

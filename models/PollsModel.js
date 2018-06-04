@@ -12,7 +12,8 @@ const pollsSchema = new mongoose.Schema({
   }],
   colors: [{
     type: String
-  }]
+  }],
+  voters: []
 },{timestamps: true}
 );
 
