@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const db = require('../models');
 const authMiddleware = require('../middleware/authMiddleware');
+var jwt = require('jsonwebtoken');
 
 router 
   .route('/newPoll')
@@ -34,9 +35,22 @@ router
   })
 
 router
-  .route('/voteOnPoll')
-  .post((req, res, next) => {
-    
+  .route('/addNewVote')
+  .patch((req, res, next) => {
+    db.Polls.findOne({ _id: req.body.id }).then(poll => {
+      const voter = req.body.voter.length > 12 ? jwt.verify(req.body.voter, process.env.SECRET_KEY).user_id : req.body.voter;
+      // if (!poll.voters.includes(voter)) {
+        poll.voters.push(voter);
+        poll.votes[req.body.location] += 1; 
+        console.log(poll);       
+        poll.save();
+        res.status(200).send('Vote Successful');
+      // } else {
+        // res.status(400).send('You cannot vote twice');
+      // }
+    }).catch(error => {
+      res.status(400).send('Vote Failed');
+    })
   })
 
 
