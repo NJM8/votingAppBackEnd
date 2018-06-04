@@ -23,6 +23,16 @@ router
     })
   })
 
+router  
+  .route('/deletePoll')
+  .delete((req, res, next) => {
+    db.Polls.findOneAndDelete(req.body.id).then(poll => {
+      res.status(200).send('Removal Succesful');
+    }).catch(error => {
+      return next(error);
+    })
+  })
+
 router
   .route('/voteOnPoll')
   .post((req, res, next) => {
