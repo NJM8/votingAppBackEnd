@@ -40,15 +40,17 @@ router
     db.Polls.findOne({ _id: req.body.id }).then(poll => {
       const voter = req.body.voter.length > 12 ? jwt.verify(req.body.voter, process.env.SECRET_KEY).user_id : req.body.voter;
       if (!poll.voters.includes(voter)) {
-        poll.voters.push(voter);
-        const currentVote = poll.votes[req.body.location];
-        poll.votes.set(req.body.location, currentVote + 1);
+        poll[req.body.optionName].optionNumVotes += 1;
+        // poll.voters.push(voter);
+        // const currentVote = poll.votes[req.body.location];
+        // poll.votes.set(req.body.location, currentVote + 1);
         poll.save();
         res.status(200).send('Vote Successful');
       } else {
         res.status(400).send('You cannot vote twice');
       }
-    }).catch(error => {
+    })
+    .catch(error => {
       res.status(400).send('Vote Failed');
     })
   })

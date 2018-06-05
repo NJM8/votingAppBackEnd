@@ -5,13 +5,11 @@ const pollsSchema = new mongoose.Schema({
   description: String,
   creator: String,
   options: [{
-    type: String
-  }],
-  votes: [{
-    type: Number
-  }],
-  colors: [{
-    type: String
+    optionName: String,
+    details: {
+      optionColor: String,
+      optionNumVotes: Number
+    }
   }],
   voters: []
 },{timestamps: true}
