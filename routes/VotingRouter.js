@@ -8,8 +8,9 @@ router
   .route('/newPoll')
   .post((req, res, next) => {
     db.Polls.create(req.body.newPoll).then(poll => {
-      res.status(200).send();
+      res.status(200).send('New poll added Successfully');
     }).catch(error => {
+      res.status(500).send('New poll failed');
       return next(error);
     })
   })
@@ -28,8 +29,9 @@ router
   .route('/deletePoll')
   .delete((req, res, next) => {
     db.Polls.findOneAndDelete(req.body.id).then(poll => {
-      res.status(200).send('Removal Succesful');
+      res.status(200).send('Removal Successful');
     }).catch(error => {
+      res.status(500).send('Removal Failed');
       return next(error);
     })
   })
@@ -52,7 +54,7 @@ router
         res.status(200).send('Vote Successful');
     })
     .catch(error => {
-      res.status(400).send('Vote Failed');
+      res.status(500).send('Vote Failed');
       return next(error);
     })
   })
