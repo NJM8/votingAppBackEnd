@@ -10,7 +10,7 @@ const app = express();
 dotenv.load();
 
 app.use(cors({
-  origin: "http://localhost:8080"
+  origin: app.get('env') === 'development' ? 'http://localhost:8080' : 'https://natethedev-votingappfrontend.herokuapp.com'
 }));
 
 app.use(bodyParser.urlencoded({extended: true}));
