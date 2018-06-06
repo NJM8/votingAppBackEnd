@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
 const pollsSchema = new mongoose.Schema({
   title: String,
@@ -12,7 +12,7 @@ const pollsSchema = new mongoose.Schema({
     }
   }],
   voters: []
-},{timestamps: true}
-);
+}, {timestamps: true}
+)
 
-module.exports = mongoose.model('Polls', pollsSchema);
+module.exports = mongoose.model('Polls', pollsSchema)

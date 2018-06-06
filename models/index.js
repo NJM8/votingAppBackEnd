@@ -1,16 +1,16 @@
-const mongoose = require('mongoose');
+const mongoose = require('mongoose')
 
-mongoose.set('debug', true);
-mongoose.Promise = global.Promise;
+mongoose.set('debug', true)
+mongoose.Promise = global.Promise
 
 mongoose
   .connect(process.env.MONGODB_URI || 'mongodb://localhost/votingApp')
   .then(() => {
-    return console.log('Connected to Mongo DB');
+    return console.log('Connected to Mongo DB')
   })
   .catch(err => {
-    console.log(`Error: ${err}`);
-  });
+    console.log(`Error: ${err}`)
+  })
 
-  module.exports.Polls = require('./PollsModel'); 
-  module.exports.Users = require('./UsersModel'); 
+module.exports.Polls = require('./PollsModel')
+module.exports.Users = require('./UsersModel')
