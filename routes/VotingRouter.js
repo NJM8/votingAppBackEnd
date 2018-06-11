@@ -56,4 +56,22 @@ router
       })
   })
 
+router
+  .route('/addOptionToPoll')
+  .patch((req, res, next) => {
+    db.Polls.findOneAndUpdate({
+      _id: req.body.id
+    }, {
+      $push: {
+        options: req.body.newOptions
+      }
+    }).then(poll => {
+      res.status(200).send('New options added')
+    })
+      .catch(error => {
+        res.status(500).send('Adding options Failed')
+        return next(error)
+      })
+  })
+
 module.exports = router
