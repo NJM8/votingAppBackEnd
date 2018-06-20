@@ -39,8 +39,7 @@ userSchema.pre('save', function (next) {
 })
 
 userSchema.pre('remove', function (next) {
-  let user = this
-  Polls.find({ user: this.id}).then(polls => {
+  Polls.find({user: this.id}).then(polls => {
     polls.forEach(poll => {
       poll.remove()
     })
