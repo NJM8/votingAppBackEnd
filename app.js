@@ -14,7 +14,7 @@ app.use(
     origin:
       app.get("env") === "development"
         ? "http://localhost:8080"
-        : "http://votingapp.natethedev.com",
+        : "https://votingapp.natethedev.com",
   })
 );
 
